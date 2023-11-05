@@ -1,8 +1,15 @@
+let playerWins = 0;
+let computerWins = 0;
+let games = 0;
+
+
+
 function getComputerChoice() {
     let computerChoice = Math.random() * 10
     if (computerChoice <= 3.33) {return computerChoice="rock"}
     else if (computerChoice <=6.66) {return computerChoice="paper"}
     else if (computerChoice <= 10) {return computerChoice="scissors"}
+    console.log(computerChoice)
 }
 
 function getPlayerChoice() {
@@ -13,24 +20,49 @@ function getPlayerChoice() {
     else {return getPlayerChoice()}
 }
 
-function playRound() {
+function playRound(player) {
     let computer = getComputerChoice();
-    let player = getPlayerChoice();
     if (computer == 'scissors' && player == 'rock') {
-        console.log("Player wins! Rock beats scissors!")
-        return playerWins++}
+        appendResult("Player wins! Rock beats scissors!")
+        playerWins++
+        games++
+        score.textContent = playerWins;
+        endCheck()}
     else if (computer == 'scissors' && player =='paper') {
-        console.log("Computer wins! Scissors beat paper.")
-        return computerWins++}
+        appendResult("Computer wins! Scissors beats paper!")
+        computerWins++
+        games++
+        score.textContent = playerWins;
+        endCheck()}
     else if (computer == 'paper' && player == 'rock') {
-        console.log('Computer wins! Paper beats rock.')
-        return computerWins++}
+        appendResult("Computer wins! Paper beats rock!")
+        computerWins++
+        games++
+        score.textContent = playerWins;
+        endCheck()}
     else if (computer == 'paper' && player == 'scissors') {
-        console.log('Player wins! Scissors beat paper.')
-        return playerWins++}
+        appendResult("Player wins! Scissors beat paper!")
+        playerWins++
+        games++
+        score.textContent = playerWins;
+        endCheck()}
+    else if (computer== 'rock' && player =='scissors') {
+        appendResult("Computer wins! Rock beats scissors!")
+        computerWins++
+        games++
+        score.textContent = playerWins;
+        endCheck()
+    }
+    else if (computer == 'rock' && player =='paper') {
+        appendResult("Player wins! Paper beats rock!")
+        playerWins++
+        games++
+        score.textContent = playerWins;
+        endCheck()
+    }
     else if (computer = player) {
-        console.log("It's a tie!")
-        return}
+        appendResult("It's a tie!")
+        return games++ }
 }
 
 function game() {
@@ -43,3 +75,48 @@ function game() {
         else if (i==5) {return "It's a tie!"}
     }
 }
+
+function endCheck () {
+    if (computerWins == 3 ) {appendResult("The Computer wins!")
+    playerWins=0
+    computerWins=0
+    games=0
+    score.textContent = playerWins}
+    else if (playerWins == 3 ) {appendResult("The Player wins!")
+    playerWins=0
+    computerWins=0
+    games=0
+    score.textContent = playerWins}
+    else if (games==5) {appendResult("It's a game tie!")
+    playerWins=0
+    computerWins=0
+    games=0
+    score.textContent = playerWins}
+    else return;}
+
+
+function appendResult (resultText) {
+    const resultPara = document.createElement('p')
+    resultPara.textContent = resultText;
+    contentSquare.appendChild(resultPara);
+}
+
+
+const rockButton = document.querySelector(".rockButton");
+rockButton.onclick = () => playRound('rock');
+
+const paperButton = document.querySelector(".paperButton");
+paperButton.onclick = () => playRound('paper');
+
+const scissorsButton = document.querySelector(".scissorsButton");
+scissorsButton.onclick = () => playRound('scissors');
+
+const contentSquare = document.querySelector(".content-square");
+
+let scores = document.querySelector('.scores');
+let score = document.createElement('p');
+score.textContent = ("Player Score:" + playerWins);
+scores.appendChild(score);
+
+score.textContent = playerWins;
+

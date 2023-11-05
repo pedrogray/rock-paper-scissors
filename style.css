@@ -1,0 +1,14 @@
+body {
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.content-square { 
+    height: 500px;
+    width: 500px;
+    border: 1px solid black;
+    margin-bottom:50px;
+    overflow:scroll;
+}
